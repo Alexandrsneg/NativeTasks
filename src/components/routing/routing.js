@@ -7,7 +7,7 @@ import RegistrationScreen from "../registrationScreens/registrationScreen";
 import AllTasksScreen from "../tasksScreen/allTasksScreen";
 import SideBar from "./sideBar";
 import userStorage from "../../repository/local/userStorage";
-import {Alert} from "react-native";
+
 
 
 const Drawer = createDrawerNavigator();

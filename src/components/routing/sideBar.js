@@ -13,33 +13,34 @@ import { DrawerActions } from '@react-navigation/native';
 const styles = StyleSheet.create({
     container:{
         backgroundColor: '#7922CC',
-        padding: 10,
-        paddingTop: 200,
+        paddingTop: 20,
         flex: 1,
         alignContent: 'center'
     },
     text: {
         height: 40,
-        marginBottom: 1,
-        color: 'white'
+        marginBottom: 20,
+        color: 'white',
+        alignSelf: 'center',
+        fontSize: 20,
 
     },
     buttons: {
         height: 40,
+        borderTop: 'false',
+        borderTopWidth:1,
         borderColor: 'white',
-        borderWidth: 2,
-        borderRadius: 10,
-        marginBottom: 1,
-        color: 'white'
+        marginBottom: 3,
+        color: 'white',
     },
     buttonLogout: {
         height: 40,
         borderColor: 'white',
         borderWidth: 2,
         borderRadius: 10,
-        marginBottom: 1,
+        marginTop: 430,
         color: 'white',
-        backgroundColor: "red"
+        backgroundColor: "red",
     }
 });
 
@@ -59,15 +60,15 @@ class SideBar extends Component{
             userStorage.isAuth ?
                 <View style={styles.container}>
                     <Text style={styles.text}>Имя пользователя</Text>
-                    <Button buttonStyle={styles.buttons}
+                    <Button type={'clear'} buttonStyle={styles.buttons}
                             onPress={this.jumpToNotes} title={"Заметки"}/>
                     <Button buttonStyle={styles.buttonLogout}
                             onPress={this.logout} title={"Выйти"}/>
                 </View> :
                 <View style={styles.container}>
-                    <Button buttonStyle={styles.buttons}
+                    <Button type={'clear'} buttonStyle={styles.buttons}
                             onPress={this.jumpToAuth} title={"Авторизоваться"}/>
-                    <Button buttonStyle={styles.buttons}
+                    <Button type={'clear'} buttonStyle={styles.buttons}
                             onPress={this.jumpToReg} title={"Зарегистрироваться"}/>
                 </View>
 

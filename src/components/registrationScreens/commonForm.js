@@ -15,16 +15,16 @@ const styles = StyleSheet.create({
         height: 40,
         borderColor: 'white',
         borderWidth: 2,
-        borderRadius: 10,
-        marginBottom: 1
+        marginBottom: 1,
+        color: 'white'
 
     },
     buttons: {
         height: 40,
         borderColor: 'white',
         borderWidth: 2,
-        borderRadius: 10,
-        marginBottom: 1,
+        borderBottomEndRadius: 10,
+        borderBottomStartRadius: 10,
         color: 'white'
     }
 });

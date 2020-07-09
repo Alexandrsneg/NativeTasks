@@ -11,7 +11,7 @@ class UserStorage {
 
 
     //!! конвертация в булевое значение для проверки на авторизацию
-    isAuth= AsyncStorage.getItem("token")
+    isAuth= false
 
 
     saveEmail = (email) => {
