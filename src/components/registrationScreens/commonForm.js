@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserStorage from "../../repository/local/userStorage";
-import {StyleSheet, TextInput, View, Button} from "react-native";
-
+import {StyleSheet, TextInput, View} from "react-native";
+import {Button} from "react-native-elements";
 
 const styles = StyleSheet.create({
     container:{
@@ -16,10 +16,17 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderWidth: 2,
         borderRadius: 10,
-        marginBottom: 1,
-        color: 'white'
+        marginBottom: 1
 
     },
+    buttons: {
+        height: 40,
+        borderColor: 'white',
+        borderWidth: 2,
+        borderRadius: 10,
+        marginBottom: 1,
+        color: 'white'
+    }
 });
 
 
@@ -41,9 +48,9 @@ class CommonForm extends Component{
                 <View style={styles.container}>
                     <TextInput style={styles.textInputs} defaultValue={UserStorage.email} onChange={this.onLoginChangeHandler}
                            placeholder= 'логин'/>
-                    <TextInput style={styles.textInputs}defaultValue={UserStorage.password} onChange={this.onPasswordChangeHandler}
+                    <TextInput style={styles.textInputs} defaultValue={UserStorage.password} onChange={this.onPasswordChangeHandler}
                            placeholder='пароль'/>
-                    <Button
+                    <Button buttonStyle={styles.buttons}
                         onPress={this.props.storageFun} title={this.props.buttonName}/>
                 </View>
         );
