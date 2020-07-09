@@ -1,6 +1,7 @@
 import {ApiService} from "../rest/apiService"
 import {action, decorate, observable} from "mobx";
 import { AsyncStorage } from 'react-native';
+import AuthScreen from "../../components/registrationScreens/authScreen";
 
 class UserStorage {
 
@@ -38,7 +39,7 @@ class UserStorage {
         }).then(response =>{
             AsyncStorage.setItem("token", response.id).then(r => console.log(r))
             this.saveToken(response.id)
-            window.location.href = "/notes"
+            AuthScreen.navigation.navigate('Заметки')
         })
     }
 

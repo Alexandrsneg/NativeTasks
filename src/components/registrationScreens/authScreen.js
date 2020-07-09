@@ -4,9 +4,12 @@ import UserStorage from "../../repository/local/userStorage"
 
 
 
+
 class AuthScreen extends Component{
 
-    onAuthUser = () => UserStorage.authUser()
+    onAuthUser = () => UserStorage.isAuth
+
+
 
     render() {
         return (
