@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserStorage from "../../repository/local/userStorage";
 import {StyleSheet, TextInput, View} from "react-native";
 import {Button} from "react-native-elements";
+import {observer} from "mobx-react";
 
 const styles = StyleSheet.create({
     container:{
@@ -35,20 +36,21 @@ class CommonForm extends Component{
 
 
     //функция-обработчик изменения состояния инпута логина
-    onLoginChangeHandler = (event) =>{
-        UserStorage.saveEmail(event.target.value)
+    handleEmail = (email) => {
+        UserStorage.saveEmail(email)
+
     }
     //функция-обработчик изменения состояния инпута пароля
-    onPasswordChangeHandler = (event) =>{
-        UserStorage.savePassword(event.target.value)
+    handlePassword = (pass) => {
+        UserStorage.savePassword(pass)
     }
 
     render() {
         return (
                 <View style={styles.container}>
-                    <TextInput style={styles.textInputs} defaultValue={UserStorage.email} onChange={this.onLoginChangeHandler}
+                    <TextInput style={styles.textInputs} defaultValue={UserStorage.email} onChangeText={this.handleEmail}
                            placeholder= 'логин'/>
-                    <TextInput style={styles.textInputs} defaultValue={UserStorage.password} onChange={this.onPasswordChangeHandler}
+                    <TextInput style={styles.textInputs} defaultValue={UserStorage.password} onChangeText={this.handlePassword}
                            placeholder='пароль'/>
                     <Button buttonStyle={styles.buttons}
                         onPress={this.props.storageFun} title={this.props.buttonName}/>

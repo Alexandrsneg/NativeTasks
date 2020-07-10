@@ -1,9 +1,13 @@
-import {ApiService} from "../rest/apiService"
+import AsyncStorage from '@react-native-community/async-storage';
 import {action, decorate, observable} from "mobx";
-import { AsyncStorage } from 'react-native';
+import {ApiService} from "../rest/apiService";
+import {Alert} from "react-native";
 import AuthScreen from "../../components/registrationScreens/authScreen";
 
 class UserStorage {
+    constructor() {
+        this.getToken()
+    }
 
     email = ""
     password=""
@@ -11,13 +15,18 @@ class UserStorage {
 
 
     //!! конвертация в булевое значение для проверки на авторизацию
-    isAuth= false
+    isAuth = ""
+
+
+    getToken = async () => {
+     const token = await AsyncStorage.getItem("token")
+        this.isAuth = token
+    }
 
 
     saveEmail = (email) => {
         this.email = email
     }
-
 
     savePassword = (password) => {
         this.password = password
@@ -28,19 +37,25 @@ class UserStorage {
     }
 
 
-    authUser = () =>{
-        return ApiService({
-            url: "/Users/login",
-            method: "POST",
-            body: {
-                email: this.email,
-                password: this.password
-            }
-        }).then(response =>{
+    authUser = async () =>{
+        try {
+            console.warn("email: " + this.email)
+            console.warn("password: " + this.password)
+            const response = await ApiService({
+                url: "/Users/login",
+                method: "POST",
+                body: {
+                    email: this.email,
+                    password: this.password
+                }
+            })
             AsyncStorage.setItem("token", response.id).then(r => console.log(r))
             this.saveToken(response.id)
-            AuthScreen.navigation.navigate('Заметки')
-        })
+            Alert.alert("Авторизован")
+        } catch(err){
+            Alert.alert("Ошибка UserStorage: " , err.response.status)
+        }
+
     }
 
     regUser = () =>{

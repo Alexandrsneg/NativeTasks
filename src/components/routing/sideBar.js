@@ -4,7 +4,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import AllTasksScreen from "../tasksScreen/allTasksScreen";
 import AuthScreen from "../registrationScreens/authScreen";
 import RegistrationScreen from "../registrationScreens/registrationScreen";
-import {Alert, StyleSheet, Text, View} from "react-native";
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import UserStorage from "../../repository/local/userStorage";
 import {Button} from "react-native-elements";
 import { DrawerActions } from '@react-navigation/native';
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     },
     buttons: {
         height: 40,
-        borderTop: 'false',
         borderTopWidth:1,
+        borderBottomWidth:1,
         borderColor: 'white',
         marginBottom: 3,
         color: 'white',
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     buttonLogout: {
         height: 40,
         borderColor: 'white',
-        borderWidth: 2,
-        borderRadius: 10,
+        borderTopWidth:1,
+        borderBottomWidth:1,
         marginTop: 430,
         color: 'white',
         backgroundColor: "red",
