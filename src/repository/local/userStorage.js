@@ -6,9 +6,6 @@ import AuthScreen from "../../components/registrationScreens/authScreen";
 import {navigate} from "@react-navigation/routers/src/CommonActions";
 
 class UserStorage {
-    // constructor() {
-    //     this.getToken()
-    // }
 
     email = ""
     password=""
@@ -17,12 +14,6 @@ class UserStorage {
 
     //!! конвертация в булевое значение для проверки на авторизацию
     isAuth = ""
-
-
-    // getToken = async () => {
-    //  const token = await AsyncStorage.getItem("token")
-    //     this.isAuth = token
-    // }
 
 
     saveEmail = (email) => {
@@ -40,8 +31,6 @@ class UserStorage {
 
     authUser = async () =>{
         try {
-            console.warn("email: " + this.email)
-            console.warn("password: " + this.password)
             const response = await ApiService({
                 url: "/Users/login",
                 method: "POST",
@@ -53,7 +42,6 @@ class UserStorage {
             await AsyncStorage.setItem("token", response.id)
             this.saveToken(response.id)
             this.isAuth = true
-            navigate("Заметки")
         } catch(err){
             Alert.alert("Ошибка UserStorage: " , err.response.status)
         }

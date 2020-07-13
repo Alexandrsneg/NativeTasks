@@ -10,7 +10,7 @@ export const ApiService = async ({url, method, body}) => {
 
         const TOKEN = await AsyncStorage.getItem("token")
         const ApiUrl = `${API_URL + url + (!!TOKEN ? `?access_token=${TOKEN}` : "")}`
-        console.warn("ApiService: start fetching")
+
         return fetch(ApiUrl, {
             method,
             headers: {
@@ -18,13 +18,10 @@ export const ApiService = async ({url, method, body}) => {
             },
             body: JSON.stringify(body)
         }).then(response => {
-            console.warn("ApiService: end fetching111")
             if (response.status >= 200 && response.status <= 299) {
-                console.warn("ApiService: returning response.json")
                 return response.json()
             } else {
                 console.warn("Ошибка HTTP1: ", response.status)
-                console.warn("response ", response)
             }
         })
 }

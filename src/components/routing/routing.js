@@ -8,7 +8,8 @@ import AllTasksScreen from "../tasksScreen/allTasksScreen";
 import SideBar from "./sideBar";
 import userStorage from "../../repository/local/userStorage";
 import {observer} from "mobx-react";
-
+import EditTasksScreen from "../tasksScreen/editTaskScreen";
+import CreateNewTask from "../tasksScreen/createTask";
 
 
 const Drawer = createDrawerNavigator();
@@ -22,6 +23,8 @@ class Routing extends Component{
                 <NavigationContainer >
                     <Drawer.Navigator drawerContent={(props)=> <SideBar {...props} />}>
                         <Drawer.Screen name="Заметки" component={AllTasksScreen} />
+                        <Drawer.Screen name="Редактирование" component={EditTasksScreen} />
+                        <Drawer.Screen name="Создать" component={CreateNewTask} />
                     </Drawer.Navigator>
                 </NavigationContainer> :
                 <NavigationContainer >

@@ -3,44 +3,11 @@ import userStorage from "../../repository/local/userStorage";
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Button} from "react-native-elements";
 import AsyncStorage from '@react-native-community/async-storage';
-import {navigate} from "@react-navigation/routers/src/CommonActions";
 import {observer} from "mobx-react";
+import {sideBarStyle} from "../../styles/sideBarStyle";
+import {appCommonStyle} from "../../styles/appCommonStyle";
 
 
-
-const styles = StyleSheet.create({
-    container:{
-        backgroundColor: '#7922CC',
-        paddingTop: 20,
-        flex: 1,
-        alignContent: 'center'
-    },
-    text: {
-        height: 40,
-        marginBottom: 20,
-        color: 'white',
-        alignSelf: 'center',
-        fontSize: 20,
-
-    },
-    buttons: {
-        height: 40,
-        borderTopWidth:1,
-        borderBottomWidth:1,
-        borderColor: 'white',
-        marginBottom: 3,
-        color: 'white',
-    },
-    buttonLogout: {
-        height: 40,
-        borderColor: 'white',
-        borderTopWidth:1,
-        borderBottomWidth:1,
-        marginTop: 430,
-        color: 'white',
-        backgroundColor: "red",
-    }
-});
 
 class SideBar extends Component{
 
@@ -56,17 +23,17 @@ class SideBar extends Component{
     render() {
         return (
             userStorage.isAuth ?
-                <View style={styles.container}>
-                    <Text style={styles.text}>Имя пользователя</Text>
-                    <Button type={'clear'} buttonStyle={styles.buttons}
+                <View style={sideBarStyle.container}>
+                    <Text style={sideBarStyle.text}>{userStorage.email}</Text>
+                    <Button type={'clear'} buttonStyle={sideBarStyle.buttons}
                             onPress={this.jumpToNotes} title={"Заметки"}/>
-                    <Button buttonStyle={styles.buttonLogout}
+                    <Button buttonStyle={sideBarStyle.buttonLogout}
                             onPress={this.logout} title={"Выйти"}/>
                 </View> :
-                <View style={styles.container}>
-                    <Button type={'clear'} buttonStyle={styles.buttons}
+                <View style={sideBarStyle.container}>
+                    <Button type={'clear'} buttonStyle={sideBarStyle.buttons}
                             onPress={this.jumpToAuth} title={"Авторизоваться"}/>
-                    <Button type={'clear'} buttonStyle={styles.buttons}
+                    <Button type={'clear'} buttonStyle={sideBarStyle.buttons}
                             onPress={this.jumpToReg} title={"Зарегистрироваться"}/>
                 </View>
 
