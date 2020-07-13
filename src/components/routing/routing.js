@@ -7,6 +7,7 @@ import RegistrationScreen from "../registrationScreens/registrationScreen";
 import AllTasksScreen from "../tasksScreen/allTasksScreen";
 import SideBar from "./sideBar";
 import userStorage from "../../repository/local/userStorage";
+import {observer} from "mobx-react";
 
 
 
@@ -21,7 +22,6 @@ class Routing extends Component{
                 <NavigationContainer >
                     <Drawer.Navigator drawerContent={(props)=> <SideBar {...props} />}>
                         <Drawer.Screen name="Заметки" component={AllTasksScreen} />
-                        <Drawer.Screen name="Авторизация" component={AuthScreen} />
                     </Drawer.Navigator>
                 </NavigationContainer> :
                 <NavigationContainer >
@@ -34,4 +34,4 @@ class Routing extends Component{
     }
 }
 
-export default Routing;
+export default observer(Routing);

@@ -10,7 +10,7 @@ class RegistrationScreen extends Component{
 
     render() {
         return (
-            <CommonForm storageFun ={this.onRegUser()} buttonName={"Зарегистрироваться"} />
+            <CommonForm storageFun ={this.onRegUser} buttonName={"Зарегистрироваться"} />
         );
     }
 }

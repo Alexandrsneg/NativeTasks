@@ -3,11 +3,12 @@ import {action, decorate, observable} from "mobx";
 import {ApiService} from "../rest/apiService";
 import {Alert} from "react-native";
 import AuthScreen from "../../components/registrationScreens/authScreen";
+import {navigate} from "@react-navigation/routers/src/CommonActions";
 
 class UserStorage {
-    constructor() {
-        this.getToken()
-    }
+    // constructor() {
+    //     this.getToken()
+    // }
 
     email = ""
     password=""
@@ -18,10 +19,10 @@ class UserStorage {
     isAuth = ""
 
 
-    getToken = async () => {
-     const token = await AsyncStorage.getItem("token")
-        this.isAuth = token
-    }
+    // getToken = async () => {
+    //  const token = await AsyncStorage.getItem("token")
+    //     this.isAuth = token
+    // }
 
 
     saveEmail = (email) => {
@@ -49,9 +50,10 @@ class UserStorage {
                     password: this.password
                 }
             })
-            AsyncStorage.setItem("token", response.id).then(r => console.log(r))
+            await AsyncStorage.setItem("token", response.id)
             this.saveToken(response.id)
-            Alert.alert("Авторизован")
+            this.isAuth = true
+            navigate("Заметки")
         } catch(err){
             Alert.alert("Ошибка UserStorage: " , err.response.status)
         }

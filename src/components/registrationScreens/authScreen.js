@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import CommonForm from "./commonForm";
 import UserStorage from "../../repository/local/userStorage"
 import {Alert} from "react-native";
+import {navigate} from "@react-navigation/routers/src/CommonActions";
+import {observer} from "mobx-react";
 
 
 
@@ -20,4 +22,4 @@ class AuthScreen extends Component{
     }
 }
 
-export default AuthScreen;
+export default observer(AuthScreen);

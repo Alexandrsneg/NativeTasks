@@ -1,13 +1,11 @@
 import React, {Component} from "react";
 import userStorage from "../../repository/local/userStorage";
-import {NavigationContainer} from "@react-navigation/native";
-import AllTasksScreen from "../tasksScreen/allTasksScreen";
-import AuthScreen from "../registrationScreens/authScreen";
-import RegistrationScreen from "../registrationScreens/registrationScreen";
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import UserStorage from "../../repository/local/userStorage";
 import {Button} from "react-native-elements";
-import { DrawerActions } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+import {navigate} from "@react-navigation/routers/src/CommonActions";
+import {observer} from "mobx-react";
+
 
 
 const styles = StyleSheet.create({
@@ -46,13 +44,13 @@ const styles = StyleSheet.create({
 
 class SideBar extends Component{
 
-    jumpToNotes = () => this.props.navigation.jumpTo('Заметки')
-    jumpToAuth = () => this.props.navigation.jumpTo('Авторизация')
+    jumpToNotes = () => this.props.navigation.jumpTo("Заметки")
+    jumpToAuth = () => this.props.navigation.jumpTo("Авторизация")
     jumpToReg = () => this.props.navigation.jumpTo("Регистрация")
 
     logout = () => {
-        this.props.navigation.jumpTo('Авторизация')
-        Alert.alert("Logouting")
+        AsyncStorage.clear()
+        userStorage.isAuth = false
     }
 
     render() {
@@ -77,4 +75,4 @@ class SideBar extends Component{
 }
 
 
-export default SideBar;
+export default observer(SideBar);
