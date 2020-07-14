@@ -23,7 +23,7 @@ class Routing extends Component{
                 <NavigationContainer >
                     <Drawer.Navigator drawerContent={(props)=> <SideBar {...props} />}>
                         <Drawer.Screen name="Заметки" component={AllTasksScreen} />
-                        <Drawer.Screen name="Редактирование" component={EditTasksScreen} />
+                        <Drawer.Screen name="Редактировать" component={EditTasksScreen} />
                         <Drawer.Screen name="Создать" component={CreateNewTask} />
                     </Drawer.Navigator>
                 </NavigationContainer> :

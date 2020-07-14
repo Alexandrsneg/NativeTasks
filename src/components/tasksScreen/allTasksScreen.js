@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {ScrollView, StyleSheet, Text, View} from "react-native";
 import TaskView from "./taskView";
 import TaskStorage from "../../repository/local/tasksStorage";
 import {Button} from "react-native-elements";
@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderWidth: 2,
         borderRadius: 10,
+    },
+
+    scroll: {
+        marginTop:100,
+        marginBottom:30
     }
 });
 
@@ -25,22 +30,24 @@ class AllTasksScreen extends Component{
         TaskStorage.getTasks()
     }
 
-    jumpToCreateNewTask = () => this.props.navigation.jumpTo("Создать")
+    jumpToCreateNewTask = () => this.props.navigation.navigate("Создать")
+
 
     render() {
         return (
             <View style={appCommonStyle.container}>
+                <ScrollView style={styles.scroll}>
                 {TaskStorage.tasksData.tasks.map((value) => {
                     return <TaskView key={value.id}
                                      done={value.done}
                                      title={value.title}
                                      body={value.body}
                                      id={value.id}
+                                     jumps={this.props}
                     />})}
             <Button buttonStyle={styles.button_add} onPress={this.jumpToCreateNewTask} title={"+"}/>
-
+            </ScrollView>
             </View>
-
         );
     }
 }

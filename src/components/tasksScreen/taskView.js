@@ -11,8 +11,11 @@ import {taskViewStyle} from "../../styles/taskViewStyle";
 //многоразовый компонент-шаблон для заметок
 class TaskView extends Component{
 
-    redirect = () =>{
+   jump = this.props.jumps
 
+    redirect = () =>{
+        console.warn(this.props.id)
+        this.jump.navigation.navigate("Редактировать", {id: this.props.id})
     }
 
     render() {

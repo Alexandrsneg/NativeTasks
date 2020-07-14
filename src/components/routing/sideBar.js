@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import userStorage from "../../repository/local/userStorage";
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Text, View} from "react-native";
 import {Button} from "react-native-elements";
 import AsyncStorage from '@react-native-community/async-storage';
 import {observer} from "mobx-react";
@@ -11,9 +11,9 @@ import {appCommonStyle} from "../../styles/appCommonStyle";
 
 class SideBar extends Component{
 
-    jumpToNotes = () => this.props.navigation.jumpTo("Заметки")
-    jumpToAuth = () => this.props.navigation.jumpTo("Авторизация")
-    jumpToReg = () => this.props.navigation.jumpTo("Регистрация")
+    jumpToNotes = () => this.props.navigation.navigate("Заметки")
+    jumpToAuth = () => this.props.navigation.navigate("Авторизация")
+    jumpToReg = () => this.props.navigation.navigate("Регистрация")
 
     logout = () => {
         AsyncStorage.clear()

@@ -52,7 +52,11 @@ class TasksStorage {
             url: "/tasks",
             method: "POST",
             body: this.task
-        }).then(response => this.getTasks())
+        }).then(response =>{
+            this.getTasks()
+            this.task.title = ""
+            this.task.body = ""
+        })
     }
 
 

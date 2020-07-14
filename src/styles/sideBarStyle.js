@@ -2,14 +2,14 @@ import {StyleSheet} from "react-native";
 
 export const sideBarStyle = StyleSheet.create({
     container:{
+
+        flexDirection: 'column',
         backgroundColor: '#7922CC',
-        paddingTop: 200,
         flex: 1,
-        alignContent: 'center',
+        justifyContent: 'center'
     },
     text: {
         height: 40,
-        marginBottom: 20,
         color: 'white',
         alignSelf: 'center',
         fontSize: 20,
