@@ -48,15 +48,12 @@ class TasksStorage {
 
    //добавлчем новую таску на сервер получаем все + новая
     addTask = () =>{
+        console.warn(this.task)
         ApiService({
             url: "/tasks",
             method: "POST",
             body: this.task
-        }).then(response =>{
-            this.getTasks()
-            this.task.title = ""
-            this.task.body = ""
-        })
+        }).then(response =>this.getTasks())
     }
 
 
@@ -92,6 +89,13 @@ class TasksStorage {
             url: `/tasks/${id}`,
             method: "GET"
         }).then(response => this.setTask(response))
+    }
+
+    clearTask = () => {
+        this.task.title=""
+        this.task.body=""
+        this.task.id=null
+
     }
 
 

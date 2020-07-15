@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import TaskStorage from "../../repository/local/tasksStorage";
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {Button} from "react-native-elements";
 import {observer} from "mobx-react";
 import {taskViewStyle} from "../../styles/taskViewStyle";
+import tasksStorage from "../../repository/local/tasksStorage";
 
 
 
@@ -13,8 +13,9 @@ class TaskView extends Component{
 
    jump = this.props.jumps
 
+
     redirect = () =>{
-        console.warn(this.props.id)
+        tasksStorage.getTaskById(this.props.id)
         this.jump.navigation.navigate("Редактировать", {id: this.props.id})
     }
 
@@ -28,12 +29,12 @@ class TaskView extends Component{
                           <View style={taskViewStyle.button_container}>
                     {this.props.done ?
                         <Button buttonStyle={taskViewStyle.button_done}
-                             onPress={() =>TaskStorage.changeStatusOfTask(this.props.id, this.props.done)} title={"Готово"}/> :
+                             onPress={() =>tasksStorage.changeStatusOfTask(this.props.id, this.props.done)} title={"Готово"}/> :
                         <Button buttonStyle={taskViewStyle.button_not_done}
-                             onPress={() => TaskStorage.changeStatusOfTask(this.props.id, this.props.done)} type={"outline"} title={"Не готово"}/>
+                             onPress={() => tasksStorage.changeStatusOfTask(this.props.id, this.props.done)} type={"outline"} title={"Не готово"}/>
                     }
                     <Button buttonStyle={taskViewStyle.button_edit} onPress={this.redirect} title={"Изменить"}/>
-                    <Button buttonStyle={taskViewStyle.button_delete} onPress={()=> TaskStorage.deleteTask(this.props.id)} title={"Удалить"}/>
+                    <Button buttonStyle={taskViewStyle.button_delete} onPress={()=> tasksStorage.deleteTask(this.props.id)} title={"Удалить"}/>
                           </View>
                     </View>
         );

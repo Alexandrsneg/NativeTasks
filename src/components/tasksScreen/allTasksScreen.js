@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {ScrollView, StyleSheet, Text, View} from "react-native";
 import TaskView from "./taskView";
-import TaskStorage from "../../repository/local/tasksStorage";
 import {Button} from "react-native-elements";
 import {observer} from "mobx-react";
 import {appCommonStyle} from "../../styles/appCommonStyle";
 import {navigate} from "@react-navigation/routers/src/CommonActions";
+import tasksStorage from "../../repository/local/tasksStorage";
 
 
 
@@ -26,18 +26,22 @@ const styles = StyleSheet.create({
 
 class AllTasksScreen extends Component{
 
+
     componentDidMount() {
-        TaskStorage.getTasks()
+        tasksStorage.getTasks()
     }
 
-    jumpToCreateNewTask = () => this.props.navigation.navigate("Создать")
+    jumpToCreateNewTask = () => {
+        tasksStorage.clearTask()
+      this.props.navigation.navigate("Создать")
+    }
 
 
     render() {
         return (
             <View style={appCommonStyle.container}>
                 <ScrollView style={styles.scroll}>
-                {TaskStorage.tasksData.tasks.map((value) => {
+                {tasksStorage.tasksData.tasks.map((value) => {
                     return <TaskView key={value.id}
                                      done={value.done}
                                      title={value.title}
