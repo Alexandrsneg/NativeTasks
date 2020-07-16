@@ -5,6 +5,7 @@ import {Button} from "react-native-elements";
 import {taskViewCreateStyle} from "../../styles/taskViewCreateStyle";
 import tasksStorage from "../../repository/local/tasksStorage";
 import {observer} from "mobx-react";
+import historyService from "../../repository/local/historyService";
 
 
 
@@ -43,12 +44,14 @@ class CommonTaskForm extends React.Component{
     //функция-обработчик изменения состояния заголовка
     onTitleChangeHandler = (title) =>{
         tasksStorage.setTitle(title)
+        historyService.updateState(title)
         this.changes = true
     }
 
 //функция-обработчик изменения состояния заметки
     onBodyChangeHandler = (body) =>{
         tasksStorage.setBody(body)
+        historyService.updateState(body)
         this.changes = true
 
     }
@@ -66,6 +69,11 @@ class CommonTaskForm extends React.Component{
                     </View>
                 </View>
                 <Button buttonStyle={taskViewCreateStyle.button_save} onPress={this.props.storageFun} title={"Сохранить"}/>
+                <Button onPress={this.props.undoBtn} title={"undo"}/>
+                <Button onPress={this.props.redoBtn} title={"redo"}/>
+                <Button onPress={this.props.checkPresent} title={"checkPresent"}/>
+                <Button onPress={this.props.checkPast} title={"checkPast"}/>
+                <Button onPress={this.props.checkFuture} title={"checkFuture"}/>
             </View>
 
         );

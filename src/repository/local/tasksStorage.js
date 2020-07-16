@@ -95,7 +95,6 @@ class TasksStorage {
         this.task.title=""
         this.task.body=""
         this.task.id=null
-
     }
 
 
