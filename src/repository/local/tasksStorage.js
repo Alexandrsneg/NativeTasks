@@ -13,6 +13,13 @@ class TasksStorage {
         body : ""
     }
 
+    taskReturned = (task) =>{
+        this.task.id = task.id
+        this.task.title = task.title
+        this.task.body = task.body
+
+    }
+
     flagForButton
 
     setTitle = (title) => {
@@ -112,7 +119,8 @@ class TasksStorage {
         editTask: action,
         changeStatusOfTask: action,
         deleteTask: action,
-        getTaskById: action
+        getTaskById: action,
+        taskReturned: action
     })
 
 const tasksStorage = new TasksStorage();

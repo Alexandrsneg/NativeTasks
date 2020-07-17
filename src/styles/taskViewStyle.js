@@ -3,7 +3,7 @@ import {StyleSheet} from "react-native";
 export const taskViewStyle = StyleSheet.create({
 
     container:{
-        backgroundColor: '#7922CC',
+        backgroundColor: '#D0E3C4',
         padding: 10,
         paddingTop: 200,
         flex: 1,
@@ -11,11 +11,11 @@ export const taskViewStyle = StyleSheet.create({
     },
     task_form:{
         flexDirection: 'row',
-        backgroundColor: '#6F2CF5',
+        backgroundColor: '#D0E3C4',
         padding: 10,
-        borderColor: 'white',
-        borderWidth: 2,
-        borderRadius: 10,
+        borderColor: '#ADC698',
+        borderWidth: 1,
+        borderRadius: 5,
         marginBottom: 5
     },
 
@@ -27,13 +27,12 @@ export const taskViewStyle = StyleSheet.create({
         paddingLeft: 100,
         fontSize: 20,
         fontWeight: "800",
-        color: 'white'
+        color: '#312e2e'
     },
 
     text: {
         fontSize: 10,
-        fontWeight: "800",
-        color: 'white',
+        color: '#312e2e',
     },
 
     button_container: {
@@ -43,41 +42,35 @@ export const taskViewStyle = StyleSheet.create({
 
     button_done: {
         height: 40,
-        borderColor: 'white',
-        borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 5,
         color: 'white',
-        backgroundColor: "green",
+        backgroundColor: "#81A861",
         marginBottom: 2
     },
 
     button_not_done: {
         height: 40,
-        borderColor: 'white',
-        borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 5,
         color: 'black',
-        backgroundColor: "yellow",
+        backgroundColor: "#E0ACA4",
         marginBottom: 2
     },
 
     button_edit: {
         height: 40,
-        borderColor: 'white',
-        borderWidth: 2,
-        borderRadius: 10,
-        color: 'white',
-        backgroundColor: "blue",
-        marginBottom: 2
+        borderRadius: 5,
+        color: 'black',
+        borderColor: "#3B4F2B",
+        borderWidth: 1,
+        backgroundColor: "#D0E3C4",
+        marginBottom: 2,
     },
 
     button_delete: {
         height: 40,
-        borderColor: 'white',
-        borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 5,
         color: 'white',
-        backgroundColor: "red",
+        backgroundColor: "#C05746",
         marginBottom: 2
     }
 });

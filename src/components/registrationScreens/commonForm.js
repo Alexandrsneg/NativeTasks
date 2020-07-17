@@ -30,7 +30,7 @@ class CommonForm extends Component{
                            placeholder= 'логин'/>
                     <TextInput style={authStyles.textInputs}  onChangeText={this.handlePassword}
                            placeholder='пароль'/>
-                    <Button buttonStyle={authStyles.buttons}
+                    <Button titleStyle={{color: "#3B4F2B"}} buttonStyle={authStyles.buttons}
                         onPress={this.props.storageFun} title={this.props.buttonName}/>
                 </View>
         );

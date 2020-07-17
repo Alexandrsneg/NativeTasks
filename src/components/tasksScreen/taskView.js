@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {Button} from "react-native-elements";
-import {observer} from "mobx-react";
+import {observer,} from "mobx-react";
 import {taskViewStyle} from "../../styles/taskViewStyle";
 import tasksStorage from "../../repository/local/tasksStorage";
+import historyService from "../../repository/local/historyService";
 
 
 
@@ -13,10 +14,10 @@ class TaskView extends Component{
 
    jump = this.props.jumps
 
-
     redirect = () =>{
         tasksStorage.getTaskById(this.props.id)
         this.jump.navigation.navigate("Редактировать", {id: this.props.id})
+        historyService.clearHistory(tasksStorage.task)
     }
 
     render() {
@@ -28,12 +29,12 @@ class TaskView extends Component{
                         </View>
                           <View style={taskViewStyle.button_container}>
                     {this.props.done ?
-                        <Button buttonStyle={taskViewStyle.button_done}
+                        <Button  buttonStyle={taskViewStyle.button_done}
                              onPress={() =>tasksStorage.changeStatusOfTask(this.props.id, this.props.done)} title={"Готово"}/> :
-                        <Button buttonStyle={taskViewStyle.button_not_done}
-                             onPress={() => tasksStorage.changeStatusOfTask(this.props.id, this.props.done)} type={"outline"} title={"Не готово"}/>
+                        <Button titleStyle={{color: "black"}} buttonStyle={taskViewStyle.button_not_done}
+                             onPress={() => tasksStorage.changeStatusOfTask(this.props.id, this.props.done)}  title={"Не готово"}/>
                     }
-                    <Button buttonStyle={taskViewStyle.button_edit} onPress={this.redirect} title={"Изменить"}/>
+                    <Button titleStyle={{color: "black"}}  buttonStyle={taskViewStyle.button_edit} onPress={this.redirect} title={"Изменить"}/>
                     <Button buttonStyle={taskViewStyle.button_delete} onPress={()=> tasksStorage.deleteTask(this.props.id)} title={"Удалить"}/>
                           </View>
                     </View>

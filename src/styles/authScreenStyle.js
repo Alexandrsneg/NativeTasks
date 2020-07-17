@@ -2,26 +2,30 @@ import {StyleSheet} from "react-native";
 
 export const authStyles = StyleSheet.create({
     container:{
-        backgroundColor: '#7922CC',
+        backgroundColor: '#D0E3C4',
         padding: 10,
         paddingTop: 200,
         flex: 1,
         alignContent: 'center'
     },
     textInputs: {
+        marginVertical: 2,
+        paddingHorizontal: 5,
         height: 40,
-        borderColor: 'white',
-        borderWidth: 2,
+        borderColor: '#3B4F2B',
+        borderWidth: 1,
         marginBottom: 1,
-        color: 'white'
+        color: 'black',
 
     },
     buttons: {
+        marginTop: 5,
+        paddingHorizontal: 5,
         height: 40,
-        borderColor: 'white',
-        borderWidth: 2,
-        borderBottomEndRadius: 10,
-        borderBottomStartRadius: 10,
+        borderColor: '#3B4F2B',
+        backgroundColor: "#D0E3C4",
+        borderBottomEndRadius: 5,
+        borderBottomStartRadius: 5,
         color: 'white'
     }
 });

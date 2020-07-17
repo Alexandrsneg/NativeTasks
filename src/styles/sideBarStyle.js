@@ -4,7 +4,7 @@ export const sideBarStyle = StyleSheet.create({
     container:{
 
         flexDirection: 'column',
-        backgroundColor: '#7922CC',
+        backgroundColor: '#ADC698',
         flex: 1,
         justifyContent: 'center'
     },
@@ -21,7 +21,7 @@ export const sideBarStyle = StyleSheet.create({
         borderBottomWidth:1,
         borderColor: 'white',
         marginBottom: 3,
-        color: 'white',
+        color: 'black',
     },
     buttonLogout: {
         height: 40,
@@ -30,6 +30,6 @@ export const sideBarStyle = StyleSheet.create({
         borderBottomWidth:1,
         marginTop: 430,
         color: 'white',
-        backgroundColor: "red",
+        backgroundColor: "#C05746",
     }
 });

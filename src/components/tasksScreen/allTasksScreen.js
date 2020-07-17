@@ -13,9 +13,7 @@ import historyService from "../../repository/local/historyService";
 const styles = StyleSheet.create({
 
     button_add: {
-        backgroundColor: 'grey',
-        borderColor: 'white',
-        borderWidth: 2,
+        backgroundColor: '#ADC698',
         borderRadius: 10,
     },
 

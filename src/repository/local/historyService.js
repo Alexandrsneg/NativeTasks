@@ -1,36 +1,54 @@
-import {action, decorate, observable} from "mobx";
+import {action, decorate, observable,toJS} from "mobx";
+import tasksStorage from "./tasksStorage";
 
 
 class HistoryService {
 
     state = {
-        past: [],
-        present: 0,
-        future: [],
+        past: [{
+            id : null,
+            title : "",
+            body : ""
+        } ],
+        present: null,
+        future: []
     };
 
 
-    canUndo = this.state.past.length > 0;
-
-    canRedo = this.state.future.length > 0;
-
-
-    updateState = (value) => {
+    updateState = () => {
+        this.state.present = toJS(tasksStorage.task);
         this.state.past.push(this.state.present);
-        this.state.present = value;
     };
 
 
     undo = () => {
-        this.state.future.push(this.state.present);
-        this.state.present  = this.state.past.pop()
+        if (this.state.past.length > 1) {
+            this.state.future.push(this.state.present)
+            this.state.present = this.state.past.pop()
+            tasksStorage.taskReturned(this.state.present)
+            console.warn(this.state.present)
+        }
     };
 
 
     redo = () => {
-        this.state.past.push(this.state.present);
-        this.state.present = this.state.past.pop()
+        if (this.state.future.length > 0) {
+            this.state.past.push(this.state.present)
+            this.state.present = this.state.future.pop()
+            tasksStorage.taskReturned(this.state.present)
+        }
     };
+
+    clearHistory = ()=>{
+        console.warn("cleared")
+        this.state.past = [{
+            id : null,
+            title : "",
+            body : ""
+        }]
+        this.state.present = null
+        this.state.future.clear()
+    }
 
 }
 
@@ -40,7 +58,8 @@ decorate(HistoryService, {
     canUndo: observable,
     updateState: action,
     undo: action,
-    redo: action
+    redo: action,
+    clearHistory: action
 })
 
 const historyService = new (HistoryService);

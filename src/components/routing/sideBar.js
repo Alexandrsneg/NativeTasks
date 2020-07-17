@@ -25,15 +25,15 @@ class SideBar extends Component{
             userStorage.isAuth ?
                 <View style={sideBarStyle.container}>
                     <Text style={sideBarStyle.text}>{userStorage.email}</Text>
-                    <Button type={'clear'} buttonStyle={sideBarStyle.buttons}
+                    <Button titleStyle={{color: "black"}} type={'clear'}  buttonStyle={sideBarStyle.buttons}
                             onPress={this.jumpToNotes} title={"Заметки"}/>
-                    <Button buttonStyle={sideBarStyle.buttonLogout}
+                    <Button  buttonStyle={sideBarStyle.buttonLogout}
                             onPress={this.logout} title={"Выйти"}/>
                 </View> :
                 <View style={sideBarStyle.container}>
-                    <Button type={'clear'} buttonStyle={sideBarStyle.buttons}
+                    <Button titleStyle={{color: "#3B4F2B"}} type={'clear'} buttonStyle={sideBarStyle.buttons}
                             onPress={this.jumpToAuth} title={"Авторизоваться"}/>
-                    <Button type={'clear'} buttonStyle={sideBarStyle.buttons}
+                    <Button titleStyle={{color: "#3B4F2B"}} type={'clear'} buttonStyle={sideBarStyle.buttons}
                             onPress={this.jumpToReg} title={"Зарегистрироваться"}/>
                 </View>
 
