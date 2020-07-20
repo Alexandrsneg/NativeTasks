@@ -5,24 +5,26 @@ import tasksStorage from "./tasksStorage";
 class HistoryService {
 
     state = {
-        past: [{
-            id : null,
-            title : "",
-            body : ""
-        } ],
-        present: null,
+        past: [],
+        present: 0,
         future: []
     };
 
 
-    updateState = () => {
-        this.state.present = toJS(tasksStorage.task);
+    initPresent = (value) =>{
+        this.state.present = value
+    }
+
+
+    updateState = (value) => {
+        console.warn(this.state.present)
         this.state.past.push(this.state.present);
+        this.state.present = value;
     };
 
 
     undo = () => {
-        if (this.state.past.length > 1) {
+        if (this.state.past.length > 0) {
             this.state.future.push(this.state.present)
             this.state.present = this.state.past.pop()
             tasksStorage.taskReturned(this.state.present)
@@ -31,7 +33,7 @@ class HistoryService {
 
 
     redo = () => {
-        if (this.state.future.length > 1) {
+        if (this.state.future.length > 0) {
             this.state.past.push(this.state.present)
             this.state.present = this.state.future.pop()
             tasksStorage.taskReturned(this.state.present)
@@ -39,12 +41,8 @@ class HistoryService {
     };
 
     clearHistory = ()=>{
-        this.state.past = [{
-            id : null,
-            title : "",
-            body : ""
-        }]
-        this.state.present = null
+        this.state.past = []
+        this.state.present = 0
         this.state.future.clear()
     }
 

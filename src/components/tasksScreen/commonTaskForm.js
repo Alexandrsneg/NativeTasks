@@ -6,6 +6,7 @@ import {taskViewCreateStyle} from "../../styles/taskViewCreateStyle";
 import tasksStorage from "../../repository/local/tasksStorage";
 import {observer} from "mobx-react";
 import historyService from "../../repository/local/historyService";
+import {toJS} from "mobx";
 
 
 
@@ -43,15 +44,17 @@ class CommonTaskForm extends React.Component{
 
     //функция-обработчик изменения состояния заголовка
     onTitleChangeHandler = (title) =>{
-        historyService.updateState()
+        historyService.initPresent(toJS(tasksStorage.task))
         tasksStorage.setTitle(title)
+        historyService.updateState(toJS(tasksStorage.task))
         this.changes = true
     }
 
 //функция-обработчик изменения состояния заметки
     onBodyChangeHandler = (body) =>{
-        historyService.updateState()
+        historyService.initPresent(toJS(tasksStorage.task))
         tasksStorage.setBody(body)
+        historyService.updateState(toJS(tasksStorage.task))
         this.changes = true
 
     }
