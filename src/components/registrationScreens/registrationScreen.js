@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CommonForm from "./commonForm";
 import UserStorage from "../../repository/local/userStorage"
+import {observer} from "mobx-react";
 
 
 
@@ -10,9 +11,9 @@ class RegistrationScreen extends Component{
 
     render() {
         return (
-            <CommonForm storageFun ={this.onRegUser} buttonName={"Зарегистрироваться"} />
+            <CommonForm storageFun ={this.onRegUser} buttonName={"Зарегистрироваться"} authScreen={false}  />
         );
     }
 }
 
-export default RegistrationScreen;
+export default observer(RegistrationScreen);

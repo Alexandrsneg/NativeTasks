@@ -55,7 +55,6 @@ class TasksStorage {
 
    //добавлчем новую таску на сервер получаем все + новая
     addTask = () =>{
-        console.warn(this.task)
         ApiService({
             url: "/tasks",
             method: "POST",

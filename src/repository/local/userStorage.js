@@ -2,8 +2,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {action, decorate, observable} from "mobx";
 import {ApiService} from "../rest/apiService";
 import {Alert} from "react-native";
-import AuthScreen from "../../components/registrationScreens/authScreen";
-import {navigate} from "@react-navigation/routers/src/CommonActions";
 
 class UserStorage {
 
@@ -43,20 +41,25 @@ class UserStorage {
             this.saveToken(response.id)
             this.isAuth = true
         } catch(err){
-            Alert.alert("Ошибка UserStorage: " , err.response.status)
+            Alert.alert("Ошибка UserStorage auth: " , err.response.status)
         }
 
     }
 
     regUser = () =>{
-        ApiService({
-            url: "/Users",
-            method: "POST",
-            body: {
-                email: this.email,
-                password: this.password
-            }
-        }).then(r => console.log(r))
+        try {
+            ApiService({
+                url: "/Users",
+                method: "POST",
+                body: {
+                    email: this.email,
+                    password: this.password
+                }
+            }).then( r => this.isAuth = true)
+        } catch {
+            Alert.alert("Ошибка UserStorage reg: ")
+        }
+
      }
 }
 

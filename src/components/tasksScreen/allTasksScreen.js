@@ -4,9 +4,8 @@ import TaskView from "./taskView";
 import {Button} from "react-native-elements";
 import {observer} from "mobx-react";
 import {appCommonStyle} from "../../styles/appCommonStyle";
-import {navigate} from "@react-navigation/routers/src/CommonActions";
 import tasksStorage from "../../repository/local/tasksStorage";
-import historyService from "../../repository/local/historyService";
+
 
 
 
@@ -14,12 +13,19 @@ const styles = StyleSheet.create({
 
     button_add: {
         backgroundColor: '#ADC698',
-        borderRadius: 10,
+        borderRadius: 5,
     },
 
     scroll: {
-        marginTop:100,
         marginBottom:30
+    },
+
+    text_bigTitle: {
+        fontSize: 40,
+        textAlign: 'center',
+        color: '#312e2e',
+        marginTop:100,
+        marginBottom: 10
     }
 });
 
@@ -39,6 +45,9 @@ class AllTasksScreen extends Component{
     render() {
         return (
             <View style={appCommonStyle.container}>
+                <Text style={styles.text_bigTitle}>
+                    Все заметки
+                </Text>
                 <ScrollView style={styles.scroll}>
                 {tasksStorage.tasksData.tasks.map((value) => {
                     return <TaskView key={value.id}

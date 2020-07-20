@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, TextInput, View} from "react-native";
-import {Button} from "react-native-elements";
+import {View} from "react-native";
 import {observer} from "mobx-react";
 import CommonTaskForm from "./commonTaskForm";
 import tasksStorage from "../../repository/local/tasksStorage";
@@ -26,11 +25,6 @@ class EditTaskScreen  extends Component{
         HistoryService.redo()
     }
 
-    checkPresent = () => console.warn(HistoryService.state.present)
-    checkPast = () => console.warn(HistoryService.state.past)
-    checkFuture = () => console.warn(HistoryService.state.future)
-
-
 
 
     jump = () =>{
@@ -43,9 +37,7 @@ class EditTaskScreen  extends Component{
             <CommonTaskForm storageFun ={this.editTask} jump={this.jump}
                             undoBtn={this.undoBtn}
                             redoBtn={this.redoBtn}
-                            checkPast={this.checkPast}
-                            checkFuture={this.checkFuture}
-                            checkPresent={this.checkPresent}/>
+                            editTask={true}/>
             </View>
         );
     }

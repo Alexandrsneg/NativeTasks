@@ -56,9 +56,32 @@ class CommonTaskForm extends React.Component{
 
     }
 
+
     render() {
         return (
             <View style={appCommonStyle.container}>
+                {this.props.editTask ?
+                    <View>
+                    <Text style={taskViewCreateStyle.text_bigTitle}>
+                        Редактирование заметки
+                    </Text>
+                    <View style={taskViewCreateStyle.history_btn_container}>
+                        <View style={taskViewCreateStyle.button_undo_container}>
+                            <Button buttonStyle={taskViewCreateStyle.history_btn_undo} onPress={this.props.undoBtn}
+                                    title={"отмена"}/>
+                        </View>
+                        <View style={taskViewCreateStyle.button_redo_container}>
+                            <Button buttonStyle={taskViewCreateStyle.history_btn_redo} onPress={this.props.redoBtn}
+                                    title={"повтор"}/>
+                        </View>
+                    </View>
+                    </View> :
+                    <View>
+                    <Text style={taskViewCreateStyle.text_bigTitle}>
+                    Создание новой заметки
+                    </Text>
+                    </View>
+                }
                 <View style={taskViewCreateStyle.task_form}>
                     <View style={taskViewCreateStyle.task_content}>
                         <TextInput style={taskViewCreateStyle.title} value={tasksStorage.task.title} onChangeText={this.onTitleChangeHandler} placeholder="Title"/>
@@ -69,11 +92,6 @@ class CommonTaskForm extends React.Component{
                     </View>
                 </View>
                 <Button buttonStyle={taskViewCreateStyle.button_save} onPress={this.props.storageFun} title={"Сохранить"}/>
-
-                < Button onPress={this.props.undoBtn} title={"undo"}/>
-                    <Button onPress={this.props.redoBtn} title={"redo"}/>
-
-
 
             </View>
 

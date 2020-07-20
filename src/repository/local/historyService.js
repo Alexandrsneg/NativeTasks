@@ -26,13 +26,12 @@ class HistoryService {
             this.state.future.push(this.state.present)
             this.state.present = this.state.past.pop()
             tasksStorage.taskReturned(this.state.present)
-            console.warn(this.state.present)
         }
     };
 
 
     redo = () => {
-        if (this.state.future.length > 0) {
+        if (this.state.future.length > 1) {
             this.state.past.push(this.state.present)
             this.state.present = this.state.future.pop()
             tasksStorage.taskReturned(this.state.present)
@@ -40,7 +39,6 @@ class HistoryService {
     };
 
     clearHistory = ()=>{
-        console.warn("cleared")
         this.state.past = [{
             id : null,
             title : "",
