@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {View} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {observer} from "mobx-react";
 import CommonTaskForm from "./commonTaskForm";
-import tasksStorage from "../../repository/local/tasksStorage";
-import {appCommonStyle} from "../../styles/appCommonStyle";
+import tasksStorage from "../../repository/local/tasksStore";
 import HistoryService from "../../repository/local/historyService";
+import {NAVIGATION_TASKS} from "../../constants";
 
 
 
@@ -14,7 +14,7 @@ class EditTaskScreen  extends Component{
 
     editTask = () => {
         tasksStorage.editTask(this.props.route.params.id)
-         this.props.navigation.navigate("Заметки")
+         this.props.navigation.navigate(NAVIGATION_TASKS)
     }
 
     undoBtn = () => {
@@ -28,12 +28,12 @@ class EditTaskScreen  extends Component{
 
 
     jump = () =>{
-         this.props.navigation.navigate("Заметки")
+         this.props.navigation.navigate(NAVIGATION_TASKS)
     }
 
     render() {
         return (
-            <View style={appCommonStyle.container}>
+            <View style={style.container}>
             <CommonTaskForm storageFun ={this.editTask} jump={this.jump}
                             undoBtn={this.undoBtn}
                             redoBtn={this.redoBtn}
@@ -42,6 +42,18 @@ class EditTaskScreen  extends Component{
         );
     }
 }
+
+const style = StyleSheet.create({
+    container:{
+        flexDirection: 'column',
+        backgroundColor: '#FFFFFF',
+        padding: 10,
+        flex: 1,
+        justifyContent: 'center'
+    },
+
+
+});
 
 
 export default observer(EditTaskScreen);

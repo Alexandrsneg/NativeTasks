@@ -1,5 +1,5 @@
 import {action, decorate, observable,toJS} from "mobx";
-import tasksStorage from "./tasksStorage";
+import tasksStorage from "./tasksStore";
 
 
 class HistoryService {

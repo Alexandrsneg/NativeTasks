@@ -6,7 +6,7 @@ import AuthScreen from "../registrationScreens/authScreen";
 import RegistrationScreen from "../registrationScreens/registrationScreen";
 import AllTasksScreen from "../tasksScreen/allTasksScreen";
 import SideBar from "./sideBar";
-import userStorage from "../../repository/local/userStorage";
+import userStorage from "../../repository/local/userStore";
 import {observer} from "mobx-react";
 import EditTasksScreen from "../tasksScreen/editTaskScreen";
 import CreateNewTask from "../tasksScreen/createTask";
@@ -19,22 +19,24 @@ class Routing extends Component{
 
     render() {
         return (
-            userStorage.isAuth ?
-                <NavigationContainer >
-                    <Drawer.Navigator drawerContent={(props)=> <SideBar {...props} />}>
-                        <Drawer.Screen name="Заметки" component={AllTasksScreen} />
-                        <Drawer.Screen name="Редактировать" component={EditTasksScreen} />
-                        <Drawer.Screen name="Создать" component={CreateNewTask} />
-                    </Drawer.Navigator>
-                </NavigationContainer> :
-                <NavigationContainer >
-                    <Drawer.Navigator drawerContent={(props)=> <SideBar {...props} />}>
-                        <Drawer.Screen name="Авторизация" component={AuthScreen} />
-                        <Drawer.Screen name="Регистрация" component={RegistrationScreen} />
+            <NavigationContainer >
+                <Drawer.Navigator drawerContent={(props)=> <SideBar {...props} />}>
+                    {userStorage.isAuth ?
+                        <>
+                        <Drawer.Screen name ="TASKS" component={AllTasksScreen} />
+                        <Drawer.Screen name="EDIT" component={EditTasksScreen} />
+                        <Drawer.Screen name="CREATE" component={CreateNewTask} />
+                        </>
+                    :
+                        <>
+                        <Drawer.Screen name="AUTH" component={AuthScreen} />
+                        <Drawer.Screen name="REGISTRATION" component={RegistrationScreen} />
+                        </>}
                     </Drawer.Navigator>
                 </NavigationContainer>
         );
     }
 }
+
 
 export default observer(Routing);

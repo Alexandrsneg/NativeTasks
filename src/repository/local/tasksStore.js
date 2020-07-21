@@ -1,7 +1,7 @@
 import {action, decorate, observable} from "mobx";
 import {ApiService} from "../rest/apiService";
 
-class TasksStorage {
+class TasksStore {
 
     tasksData = {
         tasks : []
@@ -106,7 +106,7 @@ class TasksStorage {
 
 }
 
-    decorate(TasksStorage, {
+    decorate(TasksStore, {
         tasksData: observable,
         task: observable,
         flagForButton: observable,
@@ -122,6 +122,6 @@ class TasksStorage {
         taskReturned: action
     })
 
-const tasksStorage = new TasksStorage();
+const tasksStorage = new TasksStore();
 
 export default tasksStorage;

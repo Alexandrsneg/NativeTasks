@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CommonForm from "./commonForm";
-import UserStorage from "../../repository/local/userStorage"
+import UserStorage from "../../repository/local/userStore"
 import {observer} from "mobx-react";
 
 

@@ -3,16 +3,20 @@ import {action, decorate, observable} from "mobx";
 import {ApiService} from "../rest/apiService";
 import {Alert} from "react-native";
 
-class UserStorage {
+class UserStore {
 
     email = ""
     password=""
     token = ""
 
 
-    //!! конвертация в булевое значение для проверки на авторизацию
-    isAuth = ""
 
+    isAuth = false
+
+    warning = {
+        isError: false,
+        message: ""
+    }
 
     saveEmail = (email) => {
         this.email = email
@@ -41,7 +45,9 @@ class UserStorage {
             this.saveToken(response.id)
             this.isAuth = true
         } catch(err){
-            Alert.alert("Ошибка UserStorage auth: " , err.response.status)
+            let status = err.response.status
+            this.warning.isError = true
+            this.warning.message = "Не получилось авторизоваться, статус ошибки: " + status
         }
 
     }
@@ -57,23 +63,24 @@ class UserStorage {
                 }
             }).then( r => this.isAuth = true)
         } catch {
-            Alert.alert("Ошибка UserStorage reg: ")
+            Alert.alert("Ошибка UserStore reg: ")
         }
 
      }
 }
 
-decorate(UserStorage, {
+decorate(UserStore, {
     email: observable,
     token: observable,
     password: observable,
     isAuth: observable,
+    warning: observable,
     saveEmail: action,
     savePassword: action,
     authUser: action,
     regUser: action
 })
 
-const userStorage = new UserStorage();
+const userStorage = new UserStore();
 
 export default userStorage;

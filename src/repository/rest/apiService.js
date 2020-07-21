@@ -18,10 +18,11 @@ export const ApiService = async ({url, method, body}) => {
             },
             body: JSON.stringify(body)
         }).then(response => {
-            if (response.status >= 200 && response.status <= 299) {
+            if (response.ok) {
                 return response.json()
             } else {
-                console.warn("Ошибка (ApiService) HTTP: ", response.status)
+                console.warn("Ошибка HTTP: ", response.status)
+                return Promise.reject("Ошибка HTTP")
             }
         })
 }

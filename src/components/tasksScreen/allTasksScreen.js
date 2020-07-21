@@ -3,13 +3,56 @@ import {ScrollView, StyleSheet, Text, View} from "react-native";
 import TaskView from "./taskView";
 import {Button} from "react-native-elements";
 import {observer} from "mobx-react";
-import {appCommonStyle} from "../../styles/appCommonStyle";
-import tasksStorage from "../../repository/local/tasksStorage";
+import tasksStore from "../../repository/local/tasksStore";
+import {NAVIGATION_CREATE} from "../../constants";
+import Container from "../commonComponents/container";
 
 
 
+class AllTasksScreen extends Component{
+
+
+    componentDidMount() {
+        tasksStore.getTasks()
+    }
+
+    jumpToCreateNewTask = () => {
+        tasksStore.clearTask()
+      this.props.navigation.navigate(NAVIGATION_CREATE)
+    }
+
+
+    render() {
+        return (
+            <Container>
+                <Text style={styles.text_bigTitle}>
+                    Все заметки
+                </Text>
+                <ScrollView style={styles.scroll}>
+                {tasksStore.tasksData.tasks.map((value) => {
+                    return <TaskView key={value.id}
+                                     done={value.done}
+                                     title={value.title}
+                                     body={value.body}
+                                     id={value.id}
+                                     jumps={this.props}
+                    />})}
+            <Button buttonStyle={styles.button_add} onPress={this.jumpToCreateNewTask} title={"+"}/>
+            </ScrollView>
+            </Container>
+        );
+    }
+}
 
 const styles = StyleSheet.create({
+
+    container:{
+        flexDirection: 'column',
+        backgroundColor: '#FFFFFF',
+        padding: 10,
+        flex: 1,
+        justifyContent: 'center'
+    },
 
     button_add: {
         backgroundColor: '#ADC698',
@@ -28,40 +71,5 @@ const styles = StyleSheet.create({
         marginBottom: 10
     }
 });
-
-class AllTasksScreen extends Component{
-
-
-    componentDidMount() {
-        tasksStorage.getTasks()
-    }
-
-    jumpToCreateNewTask = () => {
-        tasksStorage.clearTask()
-      this.props.navigation.navigate("Создать")
-    }
-
-
-    render() {
-        return (
-            <View style={appCommonStyle.container}>
-                <Text style={styles.text_bigTitle}>
-                    Все заметки
-                </Text>
-                <ScrollView style={styles.scroll}>
-                {tasksStorage.tasksData.tasks.map((value) => {
-                    return <TaskView key={value.id}
-                                     done={value.done}
-                                     title={value.title}
-                                     body={value.body}
-                                     id={value.id}
-                                     jumps={this.props}
-                    />})}
-            <Button buttonStyle={styles.button_add} onPress={this.jumpToCreateNewTask} title={"+"}/>
-            </ScrollView>
-            </View>
-        );
-    }
-}
 
 export default observer(AllTasksScreen);

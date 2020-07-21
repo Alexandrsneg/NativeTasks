@@ -1,0 +1,7 @@
+
+export const NAVIGATION_TASKS = 'TASKS';
+export const NAVIGATION_CREATE = 'CREATE';
+export const NAVIGATION_AUTH = 'AUTH';
+export const NAVIGATION_REGISTRATION = 'REGISTRATION';
+export const NAVIGATION_EDIT = 'EDIT';
+
