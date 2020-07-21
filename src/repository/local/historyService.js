@@ -17,7 +17,6 @@ class HistoryService {
 
 
     updateState = (value) => {
-        console.warn(this.state.present)
         this.state.past.push(this.state.present);
         this.state.present = value;
     };
