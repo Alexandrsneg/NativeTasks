@@ -1,13 +1,13 @@
 import React, {Component} from "react";
-import tasksStorage from "../../repository/local/tasksStore";
 import {observer} from "mobx-react";
 import CommonTaskForm from "./commonTaskForm";
 import {NAVIGATION_TASKS} from "../../constants";
+import tasksStore from "../../repository/local/tasksStore";
 class CreateTask extends Component{
 
 
     addNewTask = () => {
-        tasksStorage.addTask()
+        tasksStore.addTask()
         this.props.navigation.jumpTo(NAVIGATION_TASKS)
     }
 

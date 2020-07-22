@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import UserStorage from "../../repository/local/userStore";
+import UserStore from "../../repository/local/userStore";
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {Button} from "react-native-elements";
 import Container from "../commonComponents/container";
+import {observer} from "mobx-react";
+import Warnings from "../commonComponents/warnings";
 
 
 
@@ -14,31 +16,42 @@ class CommonForm extends Component{
 
     //функция-обработчик изменения состояния инпута логина
     handleEmail = (email) => {
-        UserStorage.saveEmail(email)
+        UserStore.saveEmail(email)
 
     }
     //функция-обработчик изменения состояния инпута пароля
     handlePassword = (pass) => {
-        UserStorage.savePassword(pass)
+        UserStore.savePassword(pass)
     }
+
+    warningOk = () => UserStore.warning.isError = false
 
     render() {
         return (
                 <Container>
-                    {this.props.authScreen ?
-                        <Text style={style.text_bigTitle}>
-                            Экран авторизации
-                        </Text> :
-                        <Text style={style.text_bigTitle}>
-                            Экран регистрации
-                        </Text>
-                    }
-                    <TextInput style={style.textInputs}  onChangeText={this.handleEmail}
-                           placeholder= 'логин'/>
-                    <TextInput style={style.textInputs}  onChangeText={this.handlePassword}
-                           placeholder='пароль'/>
-                    <Button titleStyle={{color: "#3B4F2B"}} buttonStyle={style.buttons}
+                        {this.props.authScreen ?
+                            <Text style={style.text_bigTitle}>
+                                Экран авторизации
+                            </Text> :
+                            <Text style={style.text_bigTitle}>
+                                Экран регистрации
+                            </Text>
+                        }
+                    {UserStore.warning.isError ?
+                        <>
+                            <Warnings warningMessage={UserStore.warning.message}
+                                      buttonOk={this.warningOk}/>
+                        </>
+                        :
+                        <>
+                        <TextInput style={style.textInputs} onChangeText={this.handleEmail}
+                                   placeholder='логин'/>
+                        <TextInput style={style.textInputs} onChangeText={this.handlePassword}
+                                   placeholder='пароль'/>
+                        <Button titleStyle={{color: "#3B4F2B"}} buttonStyle={style.buttons}
                         onPress={this.props.storageFun} title={this.props.buttonName}/>
+                        </>
+                    }
                 </Container>
         );
     }
@@ -77,4 +90,4 @@ const style = StyleSheet.create({
 
 
 
-export default CommonForm
+export default observer(CommonForm)

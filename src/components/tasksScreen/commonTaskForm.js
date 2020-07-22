@@ -1,7 +1,7 @@
 import React from "react";
 import {Alert, StyleSheet, Text, TextInput, View} from "react-native";
 import {Button} from "react-native-elements";
-import tasksStorage from "../../repository/local/tasksStore";
+import tasksStore from "../../repository/local/tasksStore";
 import {observer} from "mobx-react";
 import historyService from "../../repository/local/historyService";
 import {toJS} from "mobx";
@@ -43,17 +43,17 @@ class CommonTaskForm extends React.Component{
 
     //функция-обработчик изменения состояния заголовка
     onTitleChangeHandler = (title) =>{
-        historyService.initPresent(toJS(tasksStorage.task))
-        tasksStorage.setTitle(title)
-        historyService.updateState(toJS(tasksStorage.task))
+        historyService.initPresent(toJS(tasksStore.task))
+        tasksStore.setTitle(title)
+        historyService.updateState(toJS(tasksStore.task))
         this.changes = true
     }
 
 //функция-обработчик изменения состояния заметки
     onBodyChangeHandler = (body) =>{
-        historyService.initPresent(toJS(tasksStorage.task))
-        tasksStorage.setBody(body)
-        historyService.updateState(toJS(tasksStorage.task))
+        historyService.initPresent(toJS(tasksStore.task))
+        tasksStore.setBody(body)
+        historyService.updateState(toJS(tasksStore.task))
         this.changes = true
 
     }
@@ -86,14 +86,18 @@ class CommonTaskForm extends React.Component{
                 }
                 <View style={style.task_form}>
                     <View style={style.task_content}>
-                        <TextInput style={style.title} value={tasksStorage.task.title} onChangeText={this.onTitleChangeHandler} placeholder="Title"/>
-                        <TextInput multiline style={style.text} value={tasksStorage.task.body} onChangeText={this.onBodyChangeHandler}  placeholder="Напишите заметку сюда"/>
+                        <TextInput style={style.title} value={tasksStore.task.title} onChangeText={this.onTitleChangeHandler} placeholder="Title"/>
+                        <TextInput multiline style={style.text} value={tasksStore.task.body} onChangeText={this.onBodyChangeHandler} placeholder="Напишите заметку сюда"/>
                     </View>
                     <View style={style.button_container}>
                         <Button buttonStyle={style.button_close} onPress={this.safetyClose} title={"X"}/>
                     </View>
                 </View>
-                <Button buttonStyle={style.button_save} onPress={this.props.storageFun} title={"Сохранить"}/>
+                {(tasksStore.task.title === "" || tasksStore.task.body === "") ?
+                    <></>
+                    :
+                < Button buttonStyle={style.button_save} onPress={this.props.storageFun} title={"Сохранить"}/>
+                }
 
             </Container>
 

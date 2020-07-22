@@ -6,6 +6,8 @@ import {observer} from "mobx-react";
 import tasksStore from "../../repository/local/tasksStore";
 import {NAVIGATION_CREATE} from "../../constants";
 import Container from "../commonComponents/container";
+import Warnings from "../commonComponents/warnings";
+import UserStorage from "../../repository/local/userStore";
 
 
 
@@ -21,6 +23,7 @@ class AllTasksScreen extends Component{
       this.props.navigation.navigate(NAVIGATION_CREATE)
     }
 
+    warningOk = () => tasksStore.warning.isError = false
 
     render() {
         return (
@@ -28,6 +31,13 @@ class AllTasksScreen extends Component{
                 <Text style={styles.text_bigTitle}>
                     Все заметки
                 </Text>
+                {tasksStore.warning.isError ?
+                    <>
+                        <Warnings warningMessage={tasksStore.warning.message}
+                                  buttonOk={this.warningOk}/>
+                    </>
+                    :
+                <>
                 <ScrollView style={styles.scroll}>
                 {tasksStore.tasksData.tasks.map((value) => {
                     return <TaskView key={value.id}
@@ -39,6 +49,8 @@ class AllTasksScreen extends Component{
                     />})}
             <Button buttonStyle={styles.button_add} onPress={this.jumpToCreateNewTask} title={"+"}/>
             </ScrollView>
+                    </>
+                }
             </Container>
         );
     }

@@ -31,29 +31,27 @@ class UserStore {
     }
 
 
-    authUser = async () =>{
-        try {
-            const response = await ApiService({
+    authUser =  () =>{
+
+             ApiService({
                 url: "/Users/login",
                 method: "POST",
                 body: {
                     email: this.email,
                     password: this.password
                 }
-            })
-            await AsyncStorage.setItem("token", response.id)
-            this.saveToken(response.id)
-            this.isAuth = true
-        } catch(err){
-            let status = err.response.status
-            this.warning.isError = true
-            this.warning.message = "Не получилось авторизоваться, статус ошибки: " + status
-        }
-
+            }).then(response => {
+                 AsyncStorage.setItem("token", response.id)
+                 this.saveToken(response.id)
+                 this.isAuth = true
+             }).catch(error => {
+                 this.warning.isError = true
+                 this.warning.message = "Проверьте правильность введенных данных и повторите попытку"
+        })
     }
 
     regUser = () =>{
-        try {
+
             ApiService({
                 url: "/Users",
                 method: "POST",
@@ -61,10 +59,10 @@ class UserStore {
                     email: this.email,
                     password: this.password
                 }
-            }).then( r => this.isAuth = true)
-        } catch {
-            Alert.alert("Ошибка UserStore reg: ")
-        }
+            }).then( r => this.isAuth = true).catch(error => {
+                this.warning.isError = true
+                this.warning.message = "Не получилось зерегистрироваться пожалуйста повторите попытку"
+            })
 
      }
 }
@@ -81,6 +79,6 @@ decorate(UserStore, {
     regUser: action
 })
 
-const userStorage = new UserStore();
+const userStore = new UserStore();
 
-export default userStorage;
+export default userStore;

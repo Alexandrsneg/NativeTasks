@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import userStorage from "../../repository/local/userStore";
+import userStore from "../../repository/local/userStore";
 import {StyleSheet, Text, View} from "react-native";
 import {Button} from "react-native-elements";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -16,14 +16,14 @@ class SideBar extends Component{
 
     logout = () => {
         AsyncStorage.clear()
-        userStorage.isAuth = false
+        userStore.isAuth = false
     }
 
     render() {
         return (
-            userStorage.isAuth ?
+            userStore.isAuth ?
                 <View style={style.container}>
-                    <Text style={style.text}>{userStorage.email}</Text>
+                    <Text style={style.text}>{userStore.email}</Text>
                     <Button titleStyle={{color: "black"}} type={'clear'}  buttonStyle={style.buttons}
                             onPress={this.jumpToNotes} title={"Заметки"}/>
                     <Button  buttonStyle={style.buttonLogout}

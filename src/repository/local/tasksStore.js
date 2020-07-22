@@ -13,6 +13,11 @@ class TasksStore {
         body : ""
     }
 
+    warning = {
+        isError: false,
+        message: "Что-то пошло не так повторите попытку позже"
+    }
+
     taskReturned = (task) =>{
         this.task.id = task.id
         this.task.title = task.title
@@ -50,16 +55,21 @@ class TasksStore {
         ApiService({
             url : "/tasks",
             method: "GET"
-        }).then(response => this.setTasks(response))
+        }).then(response => this.setTasks(response)).catch(error =>{
+            this.warning.isError = true
+        })
     }
 
-   //добавлчем новую таску на сервер получаем все + новая
+   //добавлчем новую таску в массив тасок
     addTask = () =>{
         ApiService({
             url: "/tasks",
             method: "POST",
             body: this.task
-        }).then(response =>this.getTasks())
+        }).then(response => {
+            this.task = response
+            this.tasksData.tasks = [...this.tasksData.tasks, this.task]
+        })
     }
 
 
@@ -69,7 +79,9 @@ class TasksStore {
             url: `/tasks/${id}`,
             method: "PATCH",
             body: this.task
-        }).then(response => this.getTasks())
+        }).then(response => {
+            this.getTasks()
+        })
     }
 
     //меняем статус по айди
@@ -86,7 +98,9 @@ class TasksStore {
         ApiService({
             url : `/tasks/${id}`,
             method : "DELETE"
-        }).then(response => this.getTasks())
+        }).then(response => this.getTasks()).catch(error =>{
+            this.warning.isError = true
+        })
     }
 
     //получаем таску по айди
@@ -94,7 +108,9 @@ class TasksStore {
         ApiService({
             url: `/tasks/${id}`,
             method: "GET"
-        }).then(response => this.setTask(response))
+        }).then(response => this.setTask(response)).catch(error =>{
+            this.warning.isError = true
+        })
     }
 
     clearTask = () => {
@@ -110,8 +126,10 @@ class TasksStore {
         tasksData: observable,
         task: observable,
         flagForButton: observable,
+        warning:observable,
         setTitle: action,
         setBody: action,
+        setTask:action,
         setTasks: action,
         getTasks: action,
         addTask: action,
@@ -122,6 +140,6 @@ class TasksStore {
         taskReturned: action
     })
 
-const tasksStorage = new TasksStore();
+const tasksStore = new TasksStore();
 
-export default tasksStorage;
+export default tasksStore;

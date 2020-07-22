@@ -6,7 +6,7 @@ import AuthScreen from "../registrationScreens/authScreen";
 import RegistrationScreen from "../registrationScreens/registrationScreen";
 import AllTasksScreen from "../tasksScreen/allTasksScreen";
 import SideBar from "./sideBar";
-import userStorage from "../../repository/local/userStore";
+import userStore from "../../repository/local/userStore";
 import {observer} from "mobx-react";
 import EditTasksScreen from "../tasksScreen/editTaskScreen";
 import CreateNewTask from "../tasksScreen/createTask";
@@ -21,7 +21,7 @@ class Routing extends Component{
         return (
             <NavigationContainer >
                 <Drawer.Navigator drawerContent={(props)=> <SideBar {...props} />}>
-                    {userStorage.isAuth ?
+                    {userStore.isAuth ?
                         <>
                         <Drawer.Screen name ="TASKS" component={AllTasksScreen} />
                         <Drawer.Screen name="EDIT" component={EditTasksScreen} />

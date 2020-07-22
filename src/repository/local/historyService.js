@@ -1,5 +1,5 @@
 import {action, decorate, observable,toJS} from "mobx";
-import tasksStorage from "./tasksStore";
+import tasksStore from "./tasksStore";
 
 
 class HistoryService {
@@ -26,7 +26,7 @@ class HistoryService {
         if (this.state.past.length > 0) {
             this.state.future.push(this.state.present)
             this.state.present = this.state.past.pop()
-            tasksStorage.taskReturned(this.state.present)
+            tasksStore.taskReturned(this.state.present)
         }
     };
 
@@ -35,7 +35,7 @@ class HistoryService {
         if (this.state.future.length > 0) {
             this.state.past.push(this.state.present)
             this.state.present = this.state.future.pop()
-            tasksStorage.taskReturned(this.state.present)
+            tasksStore.taskReturned(this.state.present)
         }
     };
 

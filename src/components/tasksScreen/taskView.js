@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {Button} from "react-native-elements";
 import {observer,} from "mobx-react";
-import tasksStorage from "../../repository/local/tasksStore";
+import tasksStore from "../../repository/local/tasksStore";
 import historyService from "../../repository/local/historyService";
 import {NAVIGATION_EDIT} from "../../constants";
 
@@ -15,9 +15,9 @@ class TaskView extends Component{
    jump = this.props.jumps
 
     redirect = () =>{
-        tasksStorage.getTaskById(this.props.id)
+        tasksStore.getTaskById(this.props.id)
         this.jump.navigation.navigate(NAVIGATION_EDIT, {id: this.props.id})
-        historyService.clearHistory(tasksStorage.task)
+        historyService.clearHistory(tasksStore.task)
     }
 
     render() {
@@ -29,13 +29,13 @@ class TaskView extends Component{
                 </View>
                     <View style={style.button_container}>
                         {this.props.done ?
-                            <Button  buttonStyle={style.button_done}
-                                    onPress={() =>tasksStorage.changeStatusOfTask(this.props.id, this.props.done)} title={"Готово"}/> :
+                            <Button buttonStyle={style.button_done}
+                                    onPress={() =>tasksStore.changeStatusOfTask(this.props.id, this.props.done)} title={"Готово"}/> :
                             <Button titleStyle={{color: "black"}} buttonStyle={style.button_not_done}
-                                    onPress={() => tasksStorage.changeStatusOfTask(this.props.id, this.props.done)}  title={"Не готово"}/>
+                                    onPress={() => tasksStore.changeStatusOfTask(this.props.id, this.props.done)} title={"Не готово"}/>
                         }
                             <Button titleStyle={{color: "black"}}  buttonStyle={style.button_edit} onPress={this.redirect} title={"Изменить"}/>
-                            <Button buttonStyle={style.button_delete} onPress={()=> tasksStorage.deleteTask(this.props.id)} title={"Удалить"}/>
+                            <Button buttonStyle={style.button_delete} onPress={()=> tasksStore.deleteTask(this.props.id)} title={"Удалить"}/>
                     </View>
             </View>
         );
@@ -44,13 +44,6 @@ class TaskView extends Component{
 
 const style = StyleSheet.create({
 
-    container:{
-        backgroundColor: '#D0E3C4',
-        padding: 10,
-        paddingTop: 200,
-        flex: 1,
-        alignContent: 'center'
-    },
     task_form:{
         flexDirection: 'row',
         backgroundColor: '#D0E3C4',

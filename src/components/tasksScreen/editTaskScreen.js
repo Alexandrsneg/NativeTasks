@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, View} from "react-native";
 import {observer} from "mobx-react";
 import CommonTaskForm from "./commonTaskForm";
-import tasksStorage from "../../repository/local/tasksStore";
+import tasksStore from "../../repository/local/tasksStore";
 import HistoryService from "../../repository/local/historyService";
 import {NAVIGATION_TASKS} from "../../constants";
 
@@ -13,7 +13,7 @@ class EditTaskScreen  extends Component{
 
 
     editTask = () => {
-        tasksStorage.editTask(this.props.route.params.id)
+        tasksStore.editTask(this.props.route.params.id)
          this.props.navigation.navigate(NAVIGATION_TASKS)
     }
 

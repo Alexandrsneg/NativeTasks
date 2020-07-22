@@ -21,9 +21,10 @@ export const ApiService = async ({url, method, body}) => {
             if (response.ok) {
                 return response.json()
             } else {
-                console.warn("Ошибка HTTP: ", response.status)
-                return Promise.reject("Ошибка HTTP")
+                return Promise.reject("Ошибка при работе с Бэком")
             }
+        }).catch(error => {
+            return Promise.reject(error)
         })
 }
 
