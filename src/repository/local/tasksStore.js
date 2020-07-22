@@ -10,7 +10,7 @@ class TasksStore {
     task = {
         id : null,
         title : "",
-        body : ""
+        body : "",
     }
 
     warning = {
@@ -68,7 +68,9 @@ class TasksStore {
             method: "POST",
             body: this.task
         }).then(response => {
-            this.getTasks()
+            console.warn(this.tasksData.tasks)
+            this.tasksData.tasks.push(response)
+            console.warn(this.tasksData.tasks)
         })
     }
 
@@ -81,13 +83,12 @@ class TasksStore {
     //редактируем таску по айди
     editTask= (id) =>{
         let index = this.getIndexOfTask(id)
-        console.warn(index)
         ApiService({
             url: `/tasks/${id}`,
             method: "PATCH",
             body: this.task
         }).then(response => {
-            response = this.task
+            this.task = response
             this.tasksData.tasks[index] = this.task
         })
     }
