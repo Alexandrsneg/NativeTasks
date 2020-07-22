@@ -18,6 +18,7 @@ class TasksStore {
         message: "Что-то пошло не так повторите попытку позже"
     }
 
+
     taskReturned = (task) =>{
         this.task.id = task.id
         this.task.title = task.title
@@ -67,20 +68,27 @@ class TasksStore {
             method: "POST",
             body: this.task
         }).then(response => {
-            this.task = response
-            this.tasksData.tasks = [...this.tasksData.tasks, this.task]
+            this.getTasks()
         })
     }
 
+    getIndexOfTask = id => {
+         return this.tasksData.tasks.findIndex(element => {
+            return element.id === id
+        })
+    }
 
     //редактируем таску по айди
     editTask= (id) =>{
+        let index = this.getIndexOfTask(id)
+        console.warn(index)
         ApiService({
             url: `/tasks/${id}`,
             method: "PATCH",
             body: this.task
         }).then(response => {
-            this.getTasks()
+            response = this.task
+            this.tasksData.tasks[index] = this.task
         })
     }
 
@@ -108,7 +116,9 @@ class TasksStore {
         ApiService({
             url: `/tasks/${id}`,
             method: "GET"
-        }).then(response => this.setTask(response)).catch(error =>{
+        }).then(response =>{
+            this.setTask(response)
+        }).catch(error =>{
             this.warning.isError = true
         })
     }
