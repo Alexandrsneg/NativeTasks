@@ -48,7 +48,7 @@ class TasksStore {
 
     changeButton = (flag) =>{
         this.flagForButton = !flag
-        this.getTasks()
+        //this.getTasks()
     }
 
     //получаем все имеющиеся таски с сервера
@@ -95,11 +95,16 @@ class TasksStore {
 
     //меняем статус по айди
     changeStatusOfTask= (id, flag) =>{
+        let index = this.getIndexOfTask(id)
         ApiService({
             url: `/tasks/${id}`,
             method: "PATCH",
             body: {"done" : !flag}
-        }).then(response => this.changeButton(response))
+        }).then(response =>{
+            this.task = response
+            this.tasksData.tasks[index] = this.task
+        this.changeButton(response)
+        })
     }
 
 
