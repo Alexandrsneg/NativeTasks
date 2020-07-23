@@ -68,9 +68,7 @@ class TasksStore {
             method: "POST",
             body: this.task
         }).then(response => {
-            console.warn(this.tasksData.tasks)
             this.tasksData.tasks.push(response)
-            console.warn(this.tasksData.tasks)
         })
     }
 
@@ -112,7 +110,10 @@ class TasksStore {
         ApiService({
             url : `/tasks/${id}`,
             method : "DELETE"
-        }).then(response => this.getTasks()).catch(error =>{
+        }).then(response =>{
+            console.warn(response)
+         this.getTasks()
+        }).catch(error =>{
             this.warning.isError = true
         })
     }
